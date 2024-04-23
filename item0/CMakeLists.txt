@@ -1,21 +1,27 @@
 cmake_minimum_required(VERSION 3.12)
-project(PyBindExample LANGUAGES CXX)
+project(example)
 
-set(CMAKE_PREFIX_PATH "/usr/local/python/3.10.13/lib/python3.10/site-packages/pybind11/")
+# 设置 C++ 标准
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 查找 Pybind11 库
-find_package(pybind11 REQUIRED)
 
-# 设置源文件列表
-set(SRC_LIST
-    src/functions.cpp
-    src/classes.cpp
-)
+# 设置 pybind11 路径
+set(PYBIND11_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/pybind11)
+add_subdirectory(${PYBIND11_DIR})
 
-# 添加共享库构建
-pybind11_add_module(MyPythonModule ${SRC_LIST})
+set(Python_ADDITIONAL_VERSIONS 3.10)
+find_package(PythonInterp 3.10 REQUIRED)
+message(STATUS "Python executable: ${PYTHON_EXECUTABLE}")
 
-# 设置安装路径
-install(TARGETS MyPythonModule
-    LIBRARY DESTINATION lib
-)
+
+# 添加要编译的源文件
+add_library(example MODULE file1.cpp)
+
+# 链接 pybind11 库
+target_link_libraries(example PRIVATE pybind11::module)
+
+set_target_properties(example PROPERTIES PREFIX "")
+
+enable_testing()
+add_subdirectory(tests)
