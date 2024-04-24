@@ -5,13 +5,21 @@ project(example)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(WITH_COVERAGE "Compile PaddlePaddle with code coverage" OFF)
+option(WITH_COVERAGE "compile with coverage" OFF)
 option(WITH_TESTING "compile with unit testing" OFF)
+option(WITH_CCACHE "compile with ccache" OFF)
 
 if(WITH_COVERAGE)
     include(cov.cmake)
 endif()
 
+if(WITH_CCACHE)
+    find_program(CCACHE_PATH ccache)
+    if(CCACHE_PATH)
+        message(STATUS "ccache is founded, use ccache to speed up compile on Unix.")
+        set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PATH})
+    endif()
+endif()
 
 # 设置 pybind11 路径
 set(PYBIND11_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/pybind11)
