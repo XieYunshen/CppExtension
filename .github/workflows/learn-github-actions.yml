@@ -12,3 +12,9 @@ jobs:
       - run: npm install -g bats
       - run: bats -v
       - run: echo "my first GitHub Actions workflow"
+  llm-td_learning:
+    name: before-test
+    uses: ./.github/workflows/llm-td_learning.yml
+    permissions:
+      id-token: write
+      contents: read

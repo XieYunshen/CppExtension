@@ -1,0 +1,51 @@
+name: Learning Retrieval PyTorch Tests for Target Determination
+
+on:
+  workflow_call:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  llm-retrieval:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Clone PyTorch
+        uses: actions/checkout@v3
+        with:
+          repository: pytorch/pytorch
+          fetch-depth: 0
+          path: pytorch
+
+    #   - name: Setup Linux
+    #     uses: ./pytorch/.github/actions/setup-linux
+
+      - name: Clone CodeLlama
+        uses: actions/checkout@v3
+        with:
+          repository: osalpekar/codellama
+          ref: main
+          path: codellama
+
+      - name: Clone Target Determination Code
+        uses: actions/checkout@v3
+        with:
+          repository: osalpekar/llm-target-determinator
+          ref: v0.0.2
+          path: llm-target-determinator
+
+      - name: Setup miniconda
+        uses: pytorch/test-infra/.github/actions/setup-miniconda@main
+        with:
+          python-version: "3.9"
+
+      - name: Install requirements
+        shell: bash -l {0}
+        run: |
+          set -euxo pipefail
+          echo ${CONDA_RUN}
+          ${CONDA_RUN} pip install -r llm-target-determinator/requirements.txt
+          cd "${GITHUB_WORKSPACE}/codellama"
+          ${CONDA_RUN} pip install -e .
