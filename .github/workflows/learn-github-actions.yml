@@ -23,14 +23,16 @@ jobs:
     steps:
       - name: Git Version
         run: git --version
-      - name: Set up apt to install specific Git version
+      - name: Download precompiled Git binary
         run: |
-          sudo apt-get update
-          sudo apt-get install -y software-properties-common
-          sudo add-apt-repository ppa:git-core/ppa
-          sudo apt-get update
-          sudo apt-get install -y git=2.34.1-1ubuntu1
-      - name: Check Git version
+          wget https://github.com/git/git/releases/download/v2.34.1/git-2.34.1-linux-x86_64.tar.gz
+          tar -xzf git-2.34.1-linux-x86_64.tar.gz
+          sudo mv git-2.34.1 /usr/local/git
+  
+      - name: Add Git to PATH
+        run: |
+          echo "/usr/local/git/bin" >> $GITHUB_ENV
+      - name: Verify Git version
         run: git --version
       - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
