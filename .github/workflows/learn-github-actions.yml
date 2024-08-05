@@ -23,6 +23,13 @@ jobs:
     steps:
       - name: Git Version
         run: git --version
+      - name: Set up apt to install specific Git version
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y software-properties-common
+          sudo add-apt-repository ppa:git-core/ppa
+          sudo apt-get update
+          sudo apt-get install -y git=2.34.1-1ubuntu1
       - name: Check Git version
         run: git --version
       - uses: actions/checkout@v4
