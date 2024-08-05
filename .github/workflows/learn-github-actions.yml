@@ -18,3 +18,22 @@ jobs:
     permissions:
       id-token: write
       contents: read
+  test_bos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: true
+          activate-environment: ""
+      - name: upload-source-code
+        env: 
+          BOS_AK: ${{ secrets.BOS_AK }}
+          BOS_SK: ${{ secrets.BOS_SK }}
+        run: |
+          python --version
+          python -m pip install --upgrade pip
+          python -m pip install bce-python-sdk==0.8.74
+          python -m pip list
+          echo ${BOS_AK}
+          echo ${BOS_SK}
+
