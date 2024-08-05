@@ -2,25 +2,26 @@ name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
-  check-bats-version:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-      - run: npm install -g bats
-      - run: bats -v
-      - run: echo "my first GitHub Actions workflow"
-  llm-td_learning:
-    name: before-test
-    uses: ./.github/workflows/llm-td_learning.yml
-    permissions:
-      id-token: write
-      contents: read
+  # check-bats-version:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '20'
+  #     - run: npm install -g bats
+  #     - run: bats -v
+  #     - run: echo "my first GitHub Actions workflow"
+  # llm-td_learning:
+  #   name: before-test
+  #   uses: ./.github/workflows/llm-td_learning.yml
+  #   permissions:
+  #     id-token: write
+  #     contents: read
   test_bos:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
         with:
           auto-activate-base: true
