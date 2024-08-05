@@ -45,5 +45,7 @@ jobs:
           python -m pip list
           echo ${BOS_AK}
           echo ${BOS_SK}
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "Branch Name: $BRANCH_NAME"
           python tools/bos_upload.py PaddleTest.tar.gz paddle-qa/CE-BuildTask-Clone/PaddleTestCodes/
 
