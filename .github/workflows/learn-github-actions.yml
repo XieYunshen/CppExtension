@@ -33,8 +33,8 @@ jobs:
           path: PaddleTest
       - name: upload-source-code
         env: 
-          BOS_AK: ${{ secrets.BOS_AK }}
-          BOS_SK: ${{ secrets.BOS_SK }}
+          AK: ${{ secrets.BOS_AK }}
+          SK: ${{ secrets.BOS_SK }}
         run: |
           ls -l
           pwd
