@@ -25,15 +25,24 @@ jobs:
         with:
           auto-activate-base: true
           activate-environment: ""
+      - name: paddletest-clone
+        uses: actions/checkout@v4
+        with:
+          repository: paddlepaddle/PaddleTest
+          path: PaddleTest
       - name: upload-source-code
         env: 
           BOS_AK: ${{ secrets.BOS_AK }}
           BOS_SK: ${{ secrets.BOS_SK }}
         run: |
+          ls -l
+          pwd
+          tar -zcf PaddleTest.tar.gz PaddleTest
           python --version
           python -m pip install --upgrade pip
           python -m pip install bce-python-sdk==0.8.74
           python -m pip list
           echo ${BOS_AK}
           echo ${BOS_SK}
+          python tools/bos_upload.py PaddleTest.tar.gz paddle-qa/CE-BuildTask-Clone/PaddleTestCodes/
 
