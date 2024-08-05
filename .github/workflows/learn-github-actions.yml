@@ -21,6 +21,8 @@ jobs:
   test_bos:
     runs-on: ubuntu-latest
     steps:
+      - name: Git Version
+        run: git --version
       - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
         with:
