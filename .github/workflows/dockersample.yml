@@ -24,3 +24,10 @@ jobs:
       with:
         entrypoint: /bin/sh
         args: -c "python -c 'print(\"Hello from Python!\")'"
+
+    - name: Run a one-line command in the Docker container
+        id: run_docker_custom
+        uses: docker://xieyunshen2020/paddleqa:code-clone-git2.34
+        with:
+          entrypoint: /bin/sh
+          args: -c "git --version"
