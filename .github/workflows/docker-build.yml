@@ -1,0 +1,33 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Docker image tag'
+        required: true
+        default: 'v1'
+        type: string
+      dockerfile:
+        description: 'Docker file path'
+        required: true
+        default: './docker/Dockerfile.git'
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        name: Build & push Docker image
+        with:
+          image: xieyunshen2020/paddleqa
+          tags: ${{ github.event.inputs.tag }}
+          registry: registry-url.io
+          dockerfile: ${{ github.event.inputs.dockerfile }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+    
+
