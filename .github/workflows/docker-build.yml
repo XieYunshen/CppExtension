@@ -25,7 +25,7 @@ jobs:
         with:
           image: xieyunshen2020/paddleqa
           tags: ${{ github.event.inputs.tag }}
-          registry: registry-url.io
+          registry: docker.io
           dockerfile: ${{ github.event.inputs.dockerfile }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
