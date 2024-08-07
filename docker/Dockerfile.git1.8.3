@@ -1,5 +1,11 @@
 FROM centos:7
 
+# 更新镜像源为阿里云源
+RUN yum install -y wget && \
+    wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo && \
+    yum clean all && \
+    yum makecache
+
 # 安装必要的依赖
 RUN yum -y update && \
     yum -y groupinstall "Development Tools" && \
