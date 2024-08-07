@@ -22,5 +22,5 @@ jobs:
 
     - name: Echo github context
       run: |
-       echo $github.base_ref
-       echo $github.repositoryUrl
+        echo "Base ref: ${{ github.base_ref }}"
+        echo "Repository URL: ${{ github.repositoryUrl }}"
