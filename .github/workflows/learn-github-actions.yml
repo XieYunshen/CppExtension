@@ -21,7 +21,7 @@ jobs:
           rm -rf .git
           git init
           git remote add origin https://github.com/paddlepaddle/PaddleTest.git
-          git fetch
+          git fetch origin develop
           git reset --hard origin/develop
       - name: upload-source-code
         env: 
