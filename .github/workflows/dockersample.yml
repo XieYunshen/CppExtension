@@ -25,3 +25,4 @@ jobs:
         echo "Base ref: ${{ github.ref_name }}"
         echo "Repository URL: ${{ github.repositoryUrl }}"
         echo "Repository Name: ${{ github.repository }}"
+        echo "Is Fork: ${{ github.event.repository.fork }}"
