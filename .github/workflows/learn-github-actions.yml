@@ -2,38 +2,9 @@ name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
-  # check-bats-version:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: '20'
-  #     - run: npm install -g bats
-  #     - run: bats -v
-  #     - run: echo "my first GitHub Actions workflow"
-  # llm-td_learning:
-  #   name: before-test
-  #   uses: ./.github/workflows/llm-td_learning.yml
-  #   permissions:
-  #     id-token: write
-  #     contents: read
   test_bos:
     runs-on: ubuntu-20.04
     steps:
-      - name: Git Version
-        run: git --version
-      - name: Download precompiled Git binary
-        run: |
-          wget https://github.com/git/git/releases/download/v2.34.1/git-2.34.1-linux-x86_64.tar.gz
-          tar -xzf git-2.34.1-linux-x86_64.tar.gz
-          sudo mv git-2.34.1 /usr/local/git
-  
-      - name: Add Git to PATH
-        run: |
-          echo "/usr/local/git/bin" >> $GITHUB_ENV
-      - name: Verify Git version
-        run: git --version
       - uses: actions/checkout@v4
       - uses: conda-incubator/setup-miniconda@v3
         with:
@@ -44,6 +15,14 @@ jobs:
         with:
           repository: paddlepaddle/PaddleTest
           path: PaddleTest
+      - name: git-reinit
+        run: |
+          cd PaddleTest
+          rm -rf .git
+          git init
+          git remote add origin https://github.com/paddlepaddle/PaddleTest.git
+          git fetch
+          git reset --hard origin/develop
       - name: upload-source-code
         env: 
           AK: ${{ secrets.BOS_AK }}
