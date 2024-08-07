@@ -13,20 +13,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Run a one-line command in a Docker container
-      uses: docker://alpine:3.12
-      with:
-        entrypoint: /bin/sh
-        args: -c "echo Hello, Docker!"
-
-    - name: Run a script in a Docker container
-      uses: docker://python:3.8-slim
-      with:
-        entrypoint: /bin/sh
-        args: -c "python -c 'print(\"Hello from Python!\")'"
-
     - name: Run a one-line command in the Docker container
       uses: docker://xieyunshen2020/paddleqa:code-clone-git2.34
       with:
         entrypoint: /bin/sh
-        args: -c "git --version"
+        args: -c "git --version;ls -ll"
